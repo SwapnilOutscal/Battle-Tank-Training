@@ -8,7 +8,7 @@ using System;
 namespace Player
 {
     [System.Serializable]
-    public class PositionData
+    public struct PositionData
     {
         public int enemyCount;
         public Vector3 position;
@@ -39,7 +39,7 @@ namespace Player
                 Debug.Log("[PlayerManager] Missing InputComponentScriptableList");
             }
 
-            GetSafePosition();
+            safePos = GetSafePosition();
 
             int r = UnityEngine.Random.Range(0, inputComponentScriptableList.inputComponentScriptables.Count);
             playerController = new PlayerController(inputComponentScriptableList.inputComponentScriptables[r], safePos);
@@ -54,7 +54,7 @@ namespace Player
             _playerController = null;
         }
 
-        public void GetSafePosition()
+        public Vector3 GetSafePosition()
         {
             currentIteration++;
             Vector3 pos = RandomPos();
@@ -73,12 +73,13 @@ namespace Player
 
                     //}
 
-                    GetSafePosition();
-                    return;
+                    safePos = GetSafePosition();
+                    break;
                 }
             }
             //Debug.Log("[PlayerManager] Player Spawnpos " + pos);
             safePos = pos;
+            return pos;
         }
 
         private Vector3 RandomPos()

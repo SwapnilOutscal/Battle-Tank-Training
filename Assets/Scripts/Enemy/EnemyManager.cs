@@ -46,15 +46,13 @@ namespace Enemy
         {
             int r = UnityEngine.Random.Range(0, scriptableObjEnemyList.enemyList.Count);
 
-            Vector3 randomPos = new Vector3(UnityEngine.Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize), 0,
-                                            UnityEngine.Random.Range(-GameManager.Instance.MapSize, GameManager.Instance.MapSize));
+            Vector3 randomPos = GameManager.Instance.GetRandomSpawnPosition();
 
             enemyController = new EnemyController(scriptableObjEnemyList.enemyList[r], randomPos);
             enemySpawned?.Invoke();
             enemyList.Add(enemyController);
 
         }
-
 
         public void DestroyEnemy(EnemyController _enemyController)
         {

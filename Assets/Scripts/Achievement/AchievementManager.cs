@@ -13,9 +13,9 @@ namespace AchievementM
         [SerializeField]
         private AchievementScriptable achievementScriptable;
 
-        public AchievementController hiScoreController { get; private set; }
-        public AchievementController gamesPlayedController { get; private set; }
-        public AchievementController enemiesKilledController { get; private set; }
+        private AchievementController hiScoreController;
+        private AchievementController gamesPlayedController;
+        private AchievementController enemiesKilledController;
 
         public event Action<AchievementType, int> AchievementCheck;
         public event Action<string> AchievementUI;
@@ -68,15 +68,9 @@ namespace AchievementM
             {
                 if(achievementScriptable.achievements[i].achievementType == achievementType)
                 {
-                    for (int k = 0; k < achievementScriptable.achievements[i].achievementInfo.Count; k++)
-                    {
-                        if(k == achievementIndex)
-                        {
-                            string value = "Unlocked " + achievementType.ToString() + " Achievement. Title " +
-                                          achievementScriptable.achievements[i].achievementInfo[k].achievementTitle;
+                    string value = "Unlocked " + achievementType.ToString() + " Achievement. Title " +
+                                          achievementScriptable.achievements[i].achievementInfo[achievementIndex].achievementTitle;
                             AchievementUI?.Invoke(value);
-                        }
-                    }
                 }
             }
         }

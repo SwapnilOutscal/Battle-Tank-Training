@@ -69,5 +69,13 @@ namespace BTManager
         {
             this.gameState = gameState;
         }
+
+        public Vector3 GetRandomSpawnPosition()
+        {
+            Vector3 randomPos = new Vector3(UnityEngine.Random.Range(-MapSize, MapSize), 0,
+                                            UnityEngine.Random.Range(-MapSize, MapSize));
+
+            return randomPos;
+        }
     }
 }

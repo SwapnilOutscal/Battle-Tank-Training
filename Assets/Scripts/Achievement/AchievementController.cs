@@ -30,8 +30,7 @@ namespace AchievementM
                 {
                     achievementHolder.AchievementName = item.AchievementName;
                     achievementHolder.achievementType = item.achievementType;
-                    int r = item.achievementInfo.Count;
-                    if (r > 0)
+                    if (item.achievementInfo.Count > 0)
                     {
                         achievementHolder.achievementInfo = new List<AchievementInfo>();
 
@@ -53,13 +52,20 @@ namespace AchievementM
             //Debug.Log("[AchievementController] CheckAchievement");
             for (int i = 0; i < achievementHolder.achievementInfo.Count; i++)
             {
-                if (requiredValue >= achievementHolder.achievementInfo[i].achievementRequirement &&
-                    achievementHolder.achievementInfo[i].achievementStatus == AchievementStatus.Locked)
+                if (IsThreshholdCrossed(requiredValue, i) && AchievementUnlocked(i))
                     AchievementManager.Instance.CheckAchievement(achievementType, i);
             }
         }
 
+        private bool AchievementUnlocked(int i)
+        {
+            return achievementHolder.achievementInfo[i].achievementStatus == AchievementStatus.Locked;
+        }
 
+        private bool IsThreshholdCrossed(int requiredValue, int i)
+        {
+            return requiredValue >= achievementHolder.achievementInfo[i].achievementRequirement;
+        }
     }
 
 }
